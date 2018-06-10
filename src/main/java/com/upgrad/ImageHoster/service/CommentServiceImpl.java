@@ -22,7 +22,12 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Comment getById(int id) {
+    public List<Comment> getById(int id) {
         return commentManager.getById(id);
+    }
+
+    @Override
+    public void save(Comment comment) {
+        commentManager.saveComment(comment);
     }
 }

@@ -18,14 +18,20 @@ public class CommentManager extends SessionManager{
 
         return comments;
     }
-    public Comment getById(int id)
+
+    public void saveComment(final Comment comment) {
+        Session session = openSession();
+        session.save(comment);
+        commitSession(session);
+    }
+    public List<Comment> getById(int id)
     {
         Session session = openSession();
 
         try {
-            Comment comment = (Comment)session.createCriteria(Comment.class)
-                    .add(Restrictions.eq("id", id))
-                    .uniqueResult(); // retrieves only 1 image
+            List<Comment> comment = session.createCriteria(Comment.class)
+                    .add(Restrictions.eq("id", id)).list();
+
             commitSession(session);
 
             return comment;

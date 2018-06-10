@@ -5,7 +5,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table
+@Table(name = "Comment")
 public class Comment implements Serializable {
 
     @Id
@@ -13,8 +13,8 @@ public class Comment implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-  // @ManyToOne(fetch = FetchType.LAZY)
-   // private Image image;
+   @ManyToOne(fetch = FetchType.EAGER)
+    private Image image;
 
    // @ManyToOne(fetch = FetchType.LAZY)
     //private User user;
@@ -22,12 +22,17 @@ public class Comment implements Serializable {
     @Column
     private String text;
 
-    @Column
-    private User user;
+    public int imageId;
 
-    public Comment(String comment,User user) {
+    public Comment(String comment) {
         this.text = comment;
-        this.user=user;
+
+    }
+    public Comment(String comment, int imageId)
+    {
+        this.text = comment;
+        this.imageId=imageId;
+
     }
 
     public Comment() {
